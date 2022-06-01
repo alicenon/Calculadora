@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="scripts/jquery-3.6.0.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+    crossorigin="anonymous">
+    <style>
+
+        .sub-general{
+            width:50%;
+             min-width: 350px;  
+             /* border-radius: 12px; */
+        }
+        .min-flex{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn{
+            margin: 10px;
+            padding: 10px;
+            font-size: 30px;
+            box-shadow: 0px 0px 0px 1.5px rgba(16, 6, 78, 0.295)
+        }
+        .calculadora{
+            
+            min-width: 300px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 0px 3px rgba(16, 6, 78, 0.295);
+            /* background-color: linear-gradient(75deg, rgba(192, 21, 21, 0), rgba(58, 58, 58, 0.007)); */
+            background: linear-gradient(45deg, red, orange, yellow, green, rgba(0, 0, 255, 0.568),rgba(128, 0, 128, 0.514),rgb(97, 96, 96),gray,black);
+
+        }
+        .cont-general{
+           
+            height: 100vh;
+            background-color: #191919;
+        }
+        @media screen and (max-width:800px){
+            .cont-general{
+               /* height: 100%; */
+                
+               
+            }
+            .calculadora{
+                width:50%;
+            }
+            .sub-general{
+            width:90%;
+            height:100%;
+             /* min-width: 350px;   */
+             /* border-radius: 12px; */
+        }
+        }
+        .cont-display{
+            border-radius: 15px;
+            box-shadow: 0px 0px 0px 5px rgba(16, 6, 78, 0.295)
+        }
+        .color-calc{
+            background: linear-gradient(70deg, rgba(94, 94, 94, 0), rgba(58, 58, 58, 0.007));
+        }
+        .color-content{
+            /* background: linear-gradient(50deg, red, orange, yellow, green, rgba(0, 0, 255, 0.568),rgba(128, 0, 128, 0.514),rgb(97, 96, 96),gray,black); */
+            background: conic-gradient(red, orange, yellow, green, blue);
+            /* The old syntax, deprecated, but still needed, prefixed, for Opera and WebKit-based browsers */
+
+
+/* The new syntax needed by standard-compliant browsers (IE 10 and Firefox 10 onwards), without prefix */
+/* background: linear-gradient(to right, rgba(255,255,255,0), rgba(255, 255, 255, 0.445)), url(blackholenasa.jpg);
+background-repeat:no-repeat;
+background-size:center;
+background-position: center; */
+
+        }
+    </style>
+    <script>
+        $(function () {
+            var dato = '';
+            var resultado = '';
+            $(".cifra").click(function () {
+                dato += $(this).val();
+                $("#cajaCifra").val(dato);
+            })
+            $(".operacion").click(function () {
+                dato += $(this).val();
+                $("#cajaCifra").val(dato);
+                $(".operacion").prop('disabled', true);
+                $(".finales").prop('disabled', false);
+                
+            })
+            $("#btnIgual").click(function () {
+                $("#cajaCifra").val('');
+                $(".operacion").prop('disabled', true);
+                for (i = 0; i < dato.length; i++) {
+                    if (isNaN(dato[i])) {
+                        var primeraCantidad = dato.substring(0, i);
+                        var segundaCantidad = dato.substring(i + 1);
+                        var operacion = dato[i];
+                        break;
+                    }
+                }
+                
+                switch (operacion) {
+                    case ('+'):
+                        resultado = parseInt(primeraCantidad) + parseInt(segundaCantidad);
+                        $("#cajaCifra").val(resultado);
+                        break;
+                    case ('-'):
+                        resultado = parseInt(primeraCantidad) - parseInt(segundaCantidad);
+                        $("#cajaCifra").val(resultado);
+                        break;
+                    case ('*'):
+                        resultado = parseInt(primeraCantidad) * parseInt(segundaCantidad);
+                        $("#cajaCifra").val(resultado);
+                        break;
+                    case ('/'):
+                        resultado = parseInt(primeraCantidad) / parseInt(segundaCantidad);
+                        $("#cajaCifra").val(resultado);
+                        break;
+                }
+            })
+            $("#btnLimpiar").click(function () {
+                $("#cajaCifra").val('');
+                dato = '';
+                $(".operacion").prop('disabled', false);
+                $(".finales").prop('disabled', true);
+            })
+        })
+    </script>
+</head>
+<body>
+    <main class="cont-general min-flex">
+        
+    
+        <div class="sub-general container">
+            
+                <!-- NAV class=""-->
+        
+        <!-- NAV class=""-->
+            <!-- cabecera-header -->
+            
+            <div class="row bg-dark" id="navbarToggleExternalContent">
+                
+                <div class="header text-center text-white">
+                    
+                    <h1>Calculadora Jquery - Bootstrap</h1>
+                </div>
+                
+                
+                <nav class="navbar navbar-dark bg-dark">
+                  
+            </div>
+            <!-- CALCULADORA-CONTAINER -->
+            <div class="row color-content min-flex">
+                <div class="calculadora container  color-calc col-7 border  p-2 m-3">
+                    <!-- <div class="calculadora container "> -->
+                <!-- display -->
+                        <div class="row cont-display min-flex bg-dark  my-3 m-5">
+                        <input class="btn btn-dark w-75 col-12 " type="text" placeholder="Cantidades..." id="cajaCifra"  readonly />
+                        </div> 
+                        
+                        <!-- calculadora -->
+                        <div class="row  min-flex">
+                        
+                            
+                                    <button  class="cifra btn btn-light col-3" id="btnUno" value="1">1</button>
+                                    <button  class="cifra btn btn-light col-3" id="btnDos" value="2">2</button>
+                                    <button  class="cifra btn btn-light col-3" id="btnTres" value="3">3</button>
+
+                        </div>
+
+                        <div class="row  min-flex">
+                            
+                                    <button  class="cifra btn btn-light col-3" id="btnCuatro" value="4">4</button>
+                                    <button  class="cifra btn btn-light col-3" id="btnCinco" value="5">5</button>
+                                    <button  class="cifra btn btn-light col-3" id="btnSeis" value="6">6</button>
+                        </div>
+                                    
+                        <div class="row  min-flex">   
+                                    <button  class="cifra btn btn-light col-3" id="btnSiete" value="7">7</button>
+                                    <button  class="cifra btn btn-light col-3" id="btnOcho" value="8">8</button>
+                                    <button  class="cifra btn btn-light col-3" id="btnNueve" value="9">9</button>
+                                
+                        </div>
+                        
+                        <div class="row  min-flex">
+                                    <button  class="operacion btn btn-dark col-3" id="btnMas" value="+">(+)</button>
+                                    <button  class="operacion btn btn-dark col-3" id="btnMenos" value="-">(-)</button>
+                                    <button  class="operacion btn btn-dark col-3" id="btnPor" value="*">(*)</button>
+                        </div>
+                        
+                        <div class="row  min-flex">
+                                
+                                    <button  class="operacion btn btn-dark col-3" id="btnDiv" value="/">(/)</button>
+                                    <button  class="finales btn btn-info col-3"  id="btnIgual"  disabled>(=)</button>
+                                    <button  class="finales btn btn-danger col-3"  id="btnLimpiar" disabled>(C)</button>
+                        </div>      
+                        
+                        
+                  
+                    <!-- </div> -->
+                </div>
+                <!-- </div> -->
+            </div>
+            <!-- pie-foot -->
+            <div class="row bg-dark"> 
+                <div class="footer text-center text-white p-3">
+                    <spam >2022 &copy; Copyright - Alejandro </spam>
+                </div>
+            </div>
+
+        </div>  
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+    crossorigin="anonymous"></script>
+</body>
+</html>
